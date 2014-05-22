@@ -12,25 +12,30 @@ def median_of_three(array)
   Array.new.push(first).push(last).push(median).sort[1]
 end
 
-def quicksort(array)
+def quicksort(array, comp = 0)
+  comp += (array.length - 1)
   if array.length <= 1
-    return array
+    return array, 0
   end
 
   pivot = array.delete(median_of_three(array))
   less = []
   more = []
-  result = []
 
   array.each do |num|
     pivot > num ? less << num : more << num
   end
 
-  result.concat(quicksort(less)).push(pivot).concat(quicksort(more))
+  sorted_less, less_comp = quicksort(less, comp)
+  sorted_more, more_comp = quicksort(more, comp)
+
+  return sorted_less.push(pivot).concat(sorted_more), comp + less_comp + more_comp
 end
 
-# puts median_of_three(numbers)
-puts quicksort(numbers)
+array, comp = quicksort(numbers)
+
+puts array
+puts comp
 
 
 #Need to refactor to in place implementation
