@@ -10,7 +10,7 @@ def quicksort(array)
     return array
   end
 
-  pivot = array.shift
+  pivot = array.pop
   less = []
   more = []
   result = []
